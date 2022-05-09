@@ -5,7 +5,12 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Szakdoga.BusinessLayer", "Szakdoga.BusinessLayer\Szakdoga.BusinessLayer.csproj", "{9FB84B9F-00B5-495E-83D3-BC6569D9E882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Szakdoga.Console", "Szakdoga.Console\Szakdoga.Console.csproj", "{1F4B1F3F-05E0-43D3-926C-BCE28848D168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Szakdoga.Console", "Szakdoga.Console\Szakdoga.Console.csproj", "{1F4B1F3F-05E0-43D3-926C-BCE28848D168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84F5C471-29B3-4388-A8C8-85DEFAA3A3BB}"
+	ProjectSection(SolutionItems) = preProject
+		drop all.sql = drop all.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

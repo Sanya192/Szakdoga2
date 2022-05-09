@@ -7,22 +7,36 @@ namespace Szakdoga.BusinessLayer.DAL
     {
 
         public DbSet<MainSyllabus> MainSyllabus { get; set; }
-        public DbSet<Specialization> Specialization { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Student> Student { get; set; }
-        public DbSet<FinishedSubject> FinishedSubject { get; set; }
+        public DbSet<SubjectEquals> SubjectEquals { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\major\OneDrive\Dokumentumok\szakdogaLocal.mdf;Integrated Security=True;Connect Timeout=30");
+            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\doga\Szakdoga.mdf;Integrated Security=True;Connect Timeout=30");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MainSyllabus>().ToTable("MainSyllabus");
-            modelBuilder.Entity<Specialization>().ToTable("Specialization");
-            modelBuilder.Entity<Subject>().ToTable("Subject");
-            modelBuilder.Entity<Student>().ToTable("Student");
-            modelBuilder.Entity<FinishedSubject>().ToTable("FinishedSubjects");
+            modelBuilder.Entity<Subject>()
+                .HasOne<Subject>(x => x.PreRequisite1)
+                .WithOne();
 
+            modelBuilder.Entity<Subject>()
+                .HasOne<Subject>(x => x.PreRequisite2)
+                .WithOne();
+
+            /*modelBuilder.Entity<SubjectEquals>()
+                .HasKey(x => new { x.SubjectOne, x.SubjectTwo });
+            */
+
+
+            /*modelBuilder.Entity<SubjectEquals>()
+                .HasOne<Subject>(x => x.SubjectOne)
+                .WithMany();
+
+            modelBuilder.Entity<SubjectEquals>()
+                .HasOne<Subject>(x => x.SubjectTwo)
+                .WithMany();*/
         }
     }
+
 }

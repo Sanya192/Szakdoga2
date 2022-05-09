@@ -13,13 +13,14 @@ namespace Szakdoga.BusinessLayer.Model
         public int ID { get; set; }
         public virtual MainSyllabus MainSyllabus { get; set; }
         public virtual Specialization Specialization { get; set; }
-        public virtual List<Subject> ExtraSubjects { get; set; }
+        public virtual ICollection<Subject> ExtraSubjects { get; set; }
+        public virtual ICollection<FinishedSubject> FinishedSubject { get; set; }
+
     }
     public class FinishedSubject
     {
         public int ID { get; set; }
         public virtual Subject SubjectId { get; set; }
-        public virtual Student StudentId {get;set;}
         public int Grade { get; set; }
     }
 }

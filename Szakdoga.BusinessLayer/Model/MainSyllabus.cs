@@ -8,6 +8,6 @@ namespace Szakdoga.BusinessLayer.Model
 {
     public class MainSyllabus : Syllabus
     {
-        public virtual List<Specialization> AvalaibleSpecializations { get; set; }
+        public virtual ICollection<Specialization> Specializations { get; set; }
     }
 }

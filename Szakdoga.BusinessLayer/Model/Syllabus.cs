@@ -12,7 +12,13 @@ namespace Szakdoga.BusinessLayer.Model
 
         public string Name { get; set; }
 
-        public virtual List<Subject> Subjects { get; set; }
+        public virtual ICollection<SubjectInSyllabus> Subjects { get; set; }
+    }
 
+    public class SubjectInSyllabus
+    {
+        public int ID { get; set; }
+        public virtual Subject Subject { get; set; }
+        public int Semester { get; set; }
     }
 }
