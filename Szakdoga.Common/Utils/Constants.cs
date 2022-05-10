@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +10,20 @@ namespace Szakdoga.BusinessLayer.Utils
 {
     public static class Constants
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public enum SubjectType
         {
-            Required,
-            Specialization,
-            MandatoryOptional,
+            Mandatory,
+            TypeA,
+            TypeB,
             Optional
         }
+        [JsonConverter(typeof(StringEnumConverter))]
         public enum SubjectLanguage
         {
             Hungarian,
             Other
         }
         public static SubjectLanguage DefaultLanguage = SubjectLanguage.Hungarian;
-        public static bool DefaultUpdateEnabled = true;
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using Szakdoga.DataLayer.Model;
 
-namespace Szakdoga.DataLayer.Datacontext;
+namespace Szakdoga.DataLayer.DAL;
 
-public partial class SzakdogaContext : DbContext
+public partial class SzakdogaContext : DbContext, ISzakdogaContext
 {
     public SzakdogaContext()
     {

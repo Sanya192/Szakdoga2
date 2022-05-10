@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Szakdoga.DataLayer.Datacontext
+namespace Szakdoga.DataLayer.Model
 {
     public partial class SubjectType
     {
