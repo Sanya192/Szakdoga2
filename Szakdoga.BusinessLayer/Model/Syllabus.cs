@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Szakdoga.BusinessLayer.Model
 {
-    public abstract class Syllabus
+    public abstract class Syllabus 
     {
         public string ID { get; set; }
 

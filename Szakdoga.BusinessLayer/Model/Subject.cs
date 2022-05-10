@@ -8,38 +8,25 @@ using static Szakdoga.BusinessLayer.Utils.Constants;
 
 namespace Szakdoga.BusinessLayer.Model
 {
-    public class Subject
+    public class Subject 
     {
         public Subject()
         {
             SubjectLanguage = DefaultLanguage;
+            PreRequisite=new List<SubjectPreRequisites>();
         }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string ID { get; set; }
         public string SubjectName { get; set; }
         public int Kredit { get; set; }
 
-        public virtual Subject? PreRequisite1 { get; set; }
-        public virtual Subject? PreRequisite2 { get; set; }
+        public virtual ICollection<SubjectPreRequisites> PreRequisite { get; set; }
 
         public SubjectType SubjectType { get; set; }
         public SubjectLanguage SubjectLanguage { get; set; }
-
-        public bool AddPreRequisite(Subject subject)
-        {
-            if (PreRequisite1 == null)
-            {
-                PreRequisite1 = subject;
-                return true;
-            }
-            if (PreRequisite2 == null)
-            {
-                PreRequisite2 = subject;
-                return true;
-            }
-            return false;
-        }
     }
+
     public class SubjectEquals
     {
         public int ID { get; set; }
@@ -47,6 +34,11 @@ namespace Szakdoga.BusinessLayer.Model
         public virtual Subject? SubjectTwo { get; set; }
     }
 
-
+    public class SubjectPreRequisites
+    {
+        public int ID { get; set; }
+        public virtual Subject? theSubject { get; set; }
+        public virtual Subject? PreRequisite { get; set; }
+    }
 
 }
