@@ -1,0 +1,11 @@
+ Specialization
+  ID=ExampleSpecNeptun
+  Name=Expamle Spec
+  LengthSemester=4
+  Subjects[]
+    ID= ExampleNeptun
+    SubjectName= Example Name
+    Kredit= 2
+    RecommmendedSemester= 1
+    PreRequisiteCodes[]=Neptun1, Neptun2
+    SubjectLanguage=Hungarian
