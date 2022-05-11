@@ -52,19 +52,9 @@ namespace Szakdoga.API.Controllers
 
         public override void Put([FromBody] SubjectDto value)
         {
-            if (Context.Subjects.Find(value.Id) != null || value == null)
+            if (!PutSubjectToContext(value, Context))
             {
                 this.Response.StatusCode = 400;
-            }
-            else
-            {
-                var modelToAdd = Mapper.MapToModel(value)!;
-                if (value.Parents != null && value.Parents.Count > 0)
-                {
-                    modelToAdd.Parents = value.Parents.Select(x => Context.Subjects.Find(x)).ToList();
-                }
-                Context.Subjects.Add(modelToAdd);
-                Context.SaveChanges();
             }
         }
 
@@ -78,6 +68,26 @@ namespace Szakdoga.API.Controllers
             else
             {
                 Context.Subjects.Remove(toDelete);
+            }
+        }
+
+        public static bool PutSubjectToContext(SubjectDto value, ISzakdogaContext Context)
+        {
+            var mapper = new SubjectMapper();
+            if (Context.Subjects.Find(value.Id) != null || value == null)
+            {
+                return false;
+            }
+            else
+            {
+                var modelToAdd = mapper.MapToModel(value)!;
+                if (value.Parents != null && value.Parents.Count > 0)
+                {
+                    modelToAdd.Parents = value.Parents.Select(x => Context.Subjects.Find(x)).ToList();
+                }
+                Context.Subjects.Add(modelToAdd);
+                Context.SaveChanges();
+                return true;
             }
         }
     }

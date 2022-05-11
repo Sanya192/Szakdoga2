@@ -17,8 +17,7 @@ namespace Szakdoga.Common.Dto
         public string? Kredit { get; set; }
         public string? RecommendedSemester { get; set; }
         public string? SyllabusId { get; set; }
-        public virtual List<string>? Parents { get; set; }
-
+        public Dictionary<string, string>? Parents { get; set; }
         public Constants.SubjectLanguage Language { get; set; }
         public Constants.SubjectType? SubjectType { get; set; }
 

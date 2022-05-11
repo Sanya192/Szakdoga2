@@ -26,10 +26,17 @@ namespace Szakdoga.API.Controllers
             return Mapper.MapToDto(Context.Students.First())!;
         }
 
-        [HttpGet("GetFinishedSubjects")]
+        [HttpGet("GetFinishedSubjects/")]
         public Dictionary<string, int?> GetFinishedSubjects()
         {
-            return this.Get().FinishedCourses.ToDictionary(c => c.Key, c => c.Value);
+            return this.Get().FinishedCourses.ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        [HttpGet("GetFinishedSubjects/{syllabusID}")]
+        public Dictionary<string, int?> GetFinishedSubjects(string? syllabusID)
+        {
+            var classesRelatedToSyllabi = Context.Subjects.Where(x => x.SyllabusId == syllabusID).Select(x => x.Id).ToList();
+            return this.Get().FinishedCourses.Where(x => classesRelatedToSyllabi.Contains(x.Key)).ToDictionary(x => x.Key, x => x.Value);
         }
 
         [HttpPut]

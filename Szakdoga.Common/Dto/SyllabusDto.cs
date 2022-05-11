@@ -15,5 +15,6 @@ namespace Szakdoga.Common.Dto
         public string? ChosableCredit { get; set; }
         public string? StartingSpecSemester { get; set; }
         public string? Parent { get; set; }
+        public List<SubjectDto>? Subjects { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Szakdoga.Common.Mappers
                 return null;
             SyllabusDto dto = new()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Length = model.Length,
                 MustChoseCredit = model.MustChoseCredit,
@@ -23,6 +24,14 @@ namespace Szakdoga.Common.Mappers
                 StartingSpecSemester = model.StartingSpecSemester,
                 Parent = model.Parent
             };
+            var subjects = model.Subjects?.ToList();
+            if (subjects != null && subjects.Count > 0)
+            {
+                SubjectMapper subjectMapper = new SubjectMapper();
+                dto.Subjects = new List<SubjectDto>();
+                foreach (var subject in subjects)
+                    dto.Subjects.Add(subjectMapper.MapToDto(subject));
+            }
             return dto;
         }
 

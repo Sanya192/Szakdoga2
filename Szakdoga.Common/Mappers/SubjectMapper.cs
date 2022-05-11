@@ -13,7 +13,7 @@ namespace Szakdoga.Common.Mappers
     {
         public SubjectDto? MapToDto(Subject? model)
         {
-            if(model == null)
+            if (model == null)
                 return null;
             SubjectDto dto = new()
             {
@@ -26,7 +26,7 @@ namespace Szakdoga.Common.Mappers
                 Language = (Constants.SubjectLanguage)Enum.Parse(typeof(Constants.SubjectLanguage), model.Language),
             };
 
-            dto.Parents = model?.Parents?.Select(x => x.Id).ToList();
+            dto.Parents = model?.Parents?.Select(x => x).ToDictionary(x => x.Id, x => x.Name);
             return dto;
         }
 
@@ -42,7 +42,7 @@ namespace Szakdoga.Common.Mappers
                 RecommendedSemester = dto.RecommendedSemester.ToString(),
                 SyllabusId = dto.SyllabusId,
                 Language = dto.Language.ToString(),
-               // Parents = dto.Parents != null ? dto.Parents?.Select(x => new Subject() { Id = x })?.ToList() : null,
+                // Parents = dto.Parents != null ? dto.Parents?.Select(x => new Subject() { Id = x })?.ToList() : null,
             };
             return subject;
         }

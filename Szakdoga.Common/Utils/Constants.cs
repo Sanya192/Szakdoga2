@@ -25,5 +25,6 @@ namespace Szakdoga.BusinessLayer.Utils
             Other
         }
         public static SubjectLanguage DefaultLanguage = SubjectLanguage.Hungarian;
+        public static int DefaultUserId = 1;
     }
 }

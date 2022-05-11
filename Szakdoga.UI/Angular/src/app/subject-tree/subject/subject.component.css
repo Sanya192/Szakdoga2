@@ -1,0 +1,11 @@
+.subject-card {
+  max-width: 300px;
+}
+
+.finished {
+  background-color: #b1ffb1;
+}
+
+.not-finished {
+  background-color: #b5b5ff;
+}
