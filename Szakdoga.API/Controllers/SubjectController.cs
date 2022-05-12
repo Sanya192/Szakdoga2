@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Szakdoga.BusinessLayer.Utils;
 using Szakdoga.Common.Dto;
 using Szakdoga.Common.Mappers;
 using Szakdoga.DataLayer.DAL;
@@ -16,23 +17,33 @@ namespace Szakdoga.API.Controllers
         {
         }
 
-        public override IEnumerable<SubjectDto?> Get()
+        public override IEnumerable<SubjectDto> Get()
         {
             var result = Context.Subjects.ToList().Select(x => Mapper.MapToDto(x)).ToList();
             return result;
         }
 
 
-        public override SubjectDto? Get(string id)
+        public override SubjectDto Get(string id)
         {
-            var result = Context.Subjects.FirstOrDefault(x => x.Id == id);
-            if (result == null)
-                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
-            return Mapper.MapToDto(result);
+            return GetSubjectsBasedOn(x => x.Id == id).First();
+        }
+
+        [HttpGet("SyllabusSubjects/{syllabusId}")]
+        public List<SubjectDto> GetSyllabusSubjects(string syllabusId)
+        {
+            return GetSubjectsBasedOn(x => x.SyllabusId == syllabusId);
         }
 
 
-        public override void Post([FromBody] SubjectDto value)
+        [HttpGet("Optional")]
+        public List<SubjectDto> GetOptionalSubjects()
+        {
+            return GetSubjectsBasedOn(x => x.SyllabusId == null);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] SubjectDto value)
         {
             if (Context.Subjects.Find(value.Id) == null)
             {
@@ -89,6 +100,21 @@ namespace Szakdoga.API.Controllers
                 Context.SaveChanges();
                 return true;
             }
+        }
+
+        private List<SubjectDto> GetSubjectsBasedOn(Func<Subject, bool> condition)
+        {
+            var result = Context.Subjects.ToList().Where(x => condition(x));
+            if (result == null)
+                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            var dtoList = result.Select(x => Mapper.MapToDto(x)).ToList();
+            return UpdateFinishes(dtoList);
+        }
+        private List<SubjectDto> UpdateFinishes(List<SubjectDto> dtoList)
+        {
+            for (int i = 0; i < dtoList.Count; i++)
+                dtoList[i].Finished = Context.StudentFinisheds.Count(x => x.StudentId == Constants.DefaultUserId && x.SubjectId == dtoList[i].Id) > 0;
+            return dtoList;
         }
     }
 }

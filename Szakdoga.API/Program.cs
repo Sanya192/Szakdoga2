@@ -22,6 +22,14 @@ builder.Services.AddSingleton<IMapper<Student, StudentDto>, StudentMapper>();
 builder.Services.AddSingleton<IMapper<Syllabus, SyllabusDto>, SyllabusMapper>();
 var app = builder.Build();
 
+app.UseCors(options =>
+                        options
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials()
+                                .WithOrigins(builder.Configuration["appUrls"])
+                                );
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

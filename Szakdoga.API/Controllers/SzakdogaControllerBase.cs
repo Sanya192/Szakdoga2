@@ -26,9 +26,6 @@ namespace Szakdoga.API.Controllers
         [HttpGet("{id}")]
         public abstract TDto? Get(TKey id);
 
-        [HttpPost]
-        public abstract void Post([FromBody] TDto value);
-
         [HttpPut()]
         public abstract void Put([FromBody] TDto value);
 

@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { MatButtonModule} from "@angular/material/button";
+import { MatButtonModule } from '@angular/material/button';
 import { TreeComponent } from './tree/tree.component';
 
 @NgModule({
@@ -16,8 +16,8 @@ import { TreeComponent } from './tree/tree.component';
     MatProgressBarModule,
     MatDividerModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  exports: [SubjectComponent],
+  exports: [SubjectComponent, TreeComponent],
 })
 export class SubjectTreeModule {}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Szakdoga.BusinessLayer.Utils;
 using Szakdoga.Common.Dto;
 using Szakdoga.Common.Mappers;
 using Szakdoga.DataLayer.DAL;
@@ -37,6 +38,46 @@ namespace Szakdoga.API.Controllers
         {
             var classesRelatedToSyllabi = Context.Subjects.Where(x => x.SyllabusId == syllabusID).Select(x => x.Id).ToList();
             return this.Get().FinishedCourses.Where(x => classesRelatedToSyllabi.Contains(x.Key)).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        [HttpGet("RegisterForUser/{syllabusID}")]
+        public void RegisterForUser(string syllabusID)
+        {
+            var student = Context.Students.Find(Constants.DefaultUserId);
+            student.Syllabi.Add(Context.Syllabi.Find(syllabusID));
+            Context.Students.Update(student);
+            Context.SaveChanges();
+        }
+
+        [HttpGet("DeRegisterForUser/{syllabusID}")]
+        public void DeRegisterForUser(string syllabusID)
+        {
+            var student = Context.Students.Find(Constants.DefaultUserId);
+            student.Syllabi.Remove(Context.Syllabi.Find(syllabusID));
+            Context.Students.Update(student);
+            Context.SaveChanges();
+        }
+        [HttpGet("GetFinishForUser/{subjectID}")]
+        public bool GetFinishForUser(string subjectID)
+        {
+            var student = Context.Students.Find(Constants.DefaultUserId);
+            return student.StudentFinisheds.Count(x=>x.SubjectId == subjectID)>0;
+        }
+        [HttpGet("SetFinishForUser/{subjectID}")]
+        public void SetFinishForUser(string subjectID)
+        {
+            var student = Context.Students.Find(Constants.DefaultUserId);
+            student.StudentFinisheds.Add(new StudentFinished { StudentId = student.Id, SubjectId = subjectID });
+            Context.Students.Update(student);
+            Context.SaveChanges();
+        }
+        [HttpGet("DeSetFinishForUser/{subjectID}")]
+        public void DeSetFinishForUser(string subjectID)
+        {
+            var student = Context.Students.Find(Constants.DefaultUserId);
+            student.StudentFinisheds.Remove(Context.StudentFinisheds.First(x=>x.StudentId == student.Id && x.SubjectId == subjectID));
+            Context.Students.Update(student);
+            Context.SaveChanges();
         }
 
         [HttpPut]

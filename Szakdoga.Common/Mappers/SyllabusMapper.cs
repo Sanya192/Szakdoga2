@@ -41,6 +41,7 @@ namespace Szakdoga.Common.Mappers
                 return null;
             Syllabus model = new()
             {
+                Id=dto.Id,
                 Name = dto.Name,
                 Length = dto.Length,
                 MustChoseCredit = dto.MustChoseCredit,

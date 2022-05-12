@@ -1,18 +1,17 @@
-<p>subject works!</p>
 <mat-card (click)="changeFinish()" [ngClass]="{
   'subject-card':true,
-  'finished':data.finished,
-  'not-finished':!data.finished
+  'finished':data.finished&&!spec,
+  'not-finished':!data.finished&&!spec,
+  'finished--spec':data.finished&&spec,
+  'not-finished--spec':!data.finished&&spec
   }">
   <mat-card-title-group>
     <mat-card-subtitle>{{data.id}}</mat-card-subtitle>
     <mat-card-title>{{data.name}}</mat-card-title>
   </mat-card-title-group>
-  <mat-card-content>
-    <mat-list>
-      <mat-list-item>Kredit:{{data.kredit}} </mat-list-item>
-      <mat-list-item>Előkövetelmények:</mat-list-item>
-      <mat-list-item style="margin-left:10%" *ngFor="let item of  parentNames; index as i;">{{item}}</mat-list-item>
-    </mat-list>
+  <mat-card-content class="content">
+    Kredit:{{data.kredit}} <br>
+    <div *ngIf="getHasParents()">Előkövetelmények:<br><br></div>
+    <div style="margin-left:10%" *ngFor="let item of  parentNames; index as i;">{{item}}</div>
   </mat-card-content>
 </mat-card>

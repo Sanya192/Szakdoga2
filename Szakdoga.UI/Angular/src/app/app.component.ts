@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from './shared/models/subject';
+import { EventService } from './shared/services/event.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,9 @@ import { Subject } from './shared/models/subject';
 export class AppComponent {
   title = 'Angular';
   sampleSubject = Subject.SampleSubject();
+  loaded = false;
 
-  constructor() {
-    console.log(this.sampleSubject);
-    console.log(Subject.SampleSubject());
+  constructor(private event: EventService) {
+    event.subjectChanged.subscribe(x=>this.loaded=true);
   }
 }

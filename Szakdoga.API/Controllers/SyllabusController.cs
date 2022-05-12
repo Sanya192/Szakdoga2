@@ -14,39 +14,37 @@ namespace Szakdoga.API.Controllers
         {
         }
 
-        public override IEnumerable<SyllabusDto?> Get()
+        public override IEnumerable<SyllabusDto> Get()
         {
             return Context.Syllabi.ToList().Select(x => Mapper.MapToDto(x));
         }
 
-        [HttpGet("/Registered")]
-        public Dictionary<string, string> GetRegisteredSyllabi()
-        {
-            return Context.Syllabi
-                .Where(x => x.Students.Contains(Context.Students.FirstOrDefault(x => Constants.DefaultUserId == x.Id)))
-                .ToDictionary(x => x.Id, x => x.Name);
-        }
 
-        public override SyllabusDto? Get(string id)
+
+
+        public override SyllabusDto Get(string id)
         {
             var result = Context.Syllabi.FirstOrDefault(x => x.Id == id);
             if (result == null)
                 this.Response.StatusCode = (int)HttpStatusCode.NotFound;
-            return Mapper.MapToDto(result);
+            return UpdateFinishes(Mapper.MapToDto(result));
         }
 
-
-        public override void Post([FromBody] SyllabusDto value)
+        [HttpGet("AllSpecName/{MainId}")]
+        public Dictionary<string, string> GetRegisteredSpecSyllabiName(string MainId)
         {
-            if (Context.Syllabi.Find(value.Id) == null)
-            {
-                this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            }
-            else
-            {
-                Context.Syllabi.Update(Mapper.MapToModel(value)!);
-                Context.SaveChanges();
-            }
+            return GetSyllabiNamesBasedOn(x =>x.Parent ==MainId);
+        }
+        [HttpGet("AllMainName")]
+        public Dictionary<string, string> GetAllMainSyllabiName()
+        {
+            return GetSyllabiNamesBasedOn(x => x.Parent == null);
+        }
+
+        [HttpGet("AllSpecName")]
+        public Dictionary<string, string> GetAllSpecSyllabiName()
+        {
+            return GetSyllabiNamesBasedOn(x =>x.Parent != null);
         }
 
         public override void Put([FromBody] SyllabusDto value)
@@ -82,5 +80,20 @@ namespace Szakdoga.API.Controllers
                 Context.Syllabi.Remove(toDelete);
             }
         }
+
+        private Dictionary<string, string> GetSyllabiNamesBasedOn(Func<Syllabus, bool> condition)
+        {
+            return Context.Syllabi.ToList()
+               .Where(x => condition(x))
+               .ToDictionary(x => x.Id, x => x.Name);
+        }
+
+        private SyllabusDto UpdateFinishes(SyllabusDto dtoList)
+        {
+            for (int i = 0; i < dtoList.Subjects.Count; i++)
+                dtoList.Subjects[i].Finished = Context.StudentFinisheds.Count(x => x.StudentId == Constants.DefaultUserId && x.SubjectId == dtoList.Subjects[i].Id) > 0;
+            return dtoList;
+        }
+
     }
 }

@@ -1,24 +1,24 @@
 import {Subject} from "./subject";
 
 export  class Syllabus{
-  Id:string;
-  Name:string;
-  Length:number;
-  MustChoseCredit:number;
-  ChosableCredit:number;
-  StartingSpec:string;
-  Parent:string;
-  Subjects:Subject[];
+  id:string;
+  name:string;
+  length:number;
+  mustChoseCredit:number;
+  chosableCredit:number;
+  startingSpecSemester:number;
+  parent:string;
+  subjects:Subject[];
 
 
   constructor(prop:any) {
-    this.Id = prop.Id;
-    this.Name = prop.Name;
-    this.Length = +prop.Length;
-    this.MustChoseCredit = +prop.MustChoseCredit;
-    this.ChosableCredit = +prop.ChosableCredit;
-    this.StartingSpec = prop.StartingSpec;
-    this.Parent = prop.Parent;
-    this.Subjects = prop.Subjects;
+    this.id = prop.id;
+    this.name = prop.name;
+    this.length = +prop.length;
+    this.mustChoseCredit = +prop.mustChoseCredit;
+    this.chosableCredit = +prop.chosableCredit;
+    this.startingSpecSemester = +prop.startingSpecSemester;
+    this.parent = prop.parent;
+    this.subjects = prop.subjects;
   }
 }

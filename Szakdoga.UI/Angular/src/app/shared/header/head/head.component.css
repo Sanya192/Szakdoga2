@@ -1,0 +1,8 @@
+.header-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.header-item{
+  margin: 10px;
+}

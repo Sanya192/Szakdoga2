@@ -1,0 +1,16 @@
+.tree-box {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+}
+
+.tree-box--first {
+
+  display: flex;
+  flex-direction: row;
+
+}
+
+.tree-box--second {
+  flex-direction: column;
+}

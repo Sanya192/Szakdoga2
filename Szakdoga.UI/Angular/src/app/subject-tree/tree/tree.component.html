@@ -1,1 +1,13 @@
-<p>tree works!</p>
+<div class="tree-box">
+<div class="tree-box tree-box--first">
+  <div class="tree-box tree-box--second" *ngFor="let items of this.getMainSubjectsBySemester();index as i;">
+    <div *ngFor="let subject of items;index as j;">
+      <st-subject [data]="subject"></st-subject>
+    </div>
+    <div *ngFor="let subject of this.getSpecSubjectsBySemester()[i-subjectService.specStartingSem+2];">
+      <st-subject [spec]="true" [data]="subject"></st-subject>
+    </div>
+</div>
+
+</div>
+</div>

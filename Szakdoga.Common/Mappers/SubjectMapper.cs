@@ -30,20 +30,24 @@ namespace Szakdoga.Common.Mappers
             return dto;
         }
 
-        public Subject? MapToModel(SubjectDto? dto)
+        public Subject? MapToModel(SubjectDto? model)
+        {
+            return this.MapToModel(model, null);
+        }
+
+        public Subject? MapToModel(SubjectDto? dto, Subject reference)
         {
             if (dto == null)
                 return null;
-            Subject subject = new()
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                Kredit = dto.Kredit.ToString(),
-                RecommendedSemester = dto.RecommendedSemester.ToString(),
-                SyllabusId = dto.SyllabusId,
-                Language = dto.Language.ToString(),
-                // Parents = dto.Parents != null ? dto.Parents?.Select(x => new Subject() { Id = x })?.ToList() : null,
-            };
+            Subject subject = reference ?? new();
+            subject.Id = dto.Id;
+            subject.Name = dto.Name;
+            subject.Kredit = dto.Kredit?.ToString();
+            subject.RecommendedSemester = dto.RecommendedSemester?.ToString();
+            subject.SyllabusId = dto.SyllabusId;
+            subject.Language = dto.Language.ToString();
+            // Parents = dto.Parents != null ? dto.Parents?.Select(x => new Subject() { Id = x })?.ToList() : null,
+
             return subject;
         }
     }
