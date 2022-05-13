@@ -40,29 +40,13 @@ namespace Szakdoga.API.Controllers
             return this.Get().FinishedCourses.Where(x => classesRelatedToSyllabi.Contains(x.Key)).ToDictionary(x => x.Key, x => x.Value);
         }
 
-        [HttpGet("RegisterForUser/{syllabusID}")]
-        public void RegisterForUser(string syllabusID)
-        {
-            var student = Context.Students.Find(Constants.DefaultUserId);
-            student.Syllabi.Add(Context.Syllabi.Find(syllabusID));
-            Context.Students.Update(student);
-            Context.SaveChanges();
-        }
-
-        [HttpGet("DeRegisterForUser/{syllabusID}")]
-        public void DeRegisterForUser(string syllabusID)
-        {
-            var student = Context.Students.Find(Constants.DefaultUserId);
-            student.Syllabi.Remove(Context.Syllabi.Find(syllabusID));
-            Context.Students.Update(student);
-            Context.SaveChanges();
-        }
         [HttpGet("GetFinishForUser/{subjectID}")]
         public bool GetFinishForUser(string subjectID)
         {
             var student = Context.Students.Find(Constants.DefaultUserId);
             return student.StudentFinisheds.Count(x=>x.SubjectId == subjectID)>0;
         }
+
         [HttpGet("SetFinishForUser/{subjectID}")]
         public void SetFinishForUser(string subjectID)
         {
@@ -71,6 +55,7 @@ namespace Szakdoga.API.Controllers
             Context.Students.Update(student);
             Context.SaveChanges();
         }
+
         [HttpGet("DeSetFinishForUser/{subjectID}")]
         public void DeSetFinishForUser(string subjectID)
         {

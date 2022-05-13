@@ -19,9 +19,6 @@ namespace Szakdoga.API.Controllers
             return Context.Syllabi.ToList().Select(x => Mapper.MapToDto(x));
         }
 
-
-
-
         public override SyllabusDto Get(string id)
         {
             var result = Context.Syllabi.FirstOrDefault(x => x.Id == id);

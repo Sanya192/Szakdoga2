@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Szakdoga.API.QueryDtos;
 using Szakdoga.BusinessLayer.Utils;
 using Szakdoga.Common.Dto;
 using Szakdoga.Common.Mappers;
@@ -81,7 +82,31 @@ namespace Szakdoga.API.Controllers
                 Context.Subjects.Remove(toDelete);
             }
         }
+        [HttpGet("/EqualTable/{targetSyllabus}/{sourceSyllabus}")]
+        public List<EqualsDto> EqualTable(string targetSyllabus, string sourceSyllabus)
+        {
 
+            var q1 = Context.Subjects
+                .Where(x => x.SyllabusId == targetSyllabus
+                    && x.StudentFinisheds.Any(y => y.StudentId == Constants.DefaultUserId))
+                .Select(target => target.NeededSubjects
+                    .Select(needed => new EqualsDto
+                    {
+                        targetSyllabusId = targetSyllabus,
+                        sourceSyllabusId = sourceSyllabus,
+                        targetSubject = Mapper.MapToDto(target),
+                        requiredSubject = Mapper.MapToDto(needed)
+                    }).ToList()).ToList();
+            List<EqualsDto> result = new List<EqualsDto>();
+            foreach (var q in q1)
+            {
+                foreach (var item in q)
+                {
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
         public static bool PutSubjectToContext(SubjectDto value, ISzakdogaContext Context)
         {
             var mapper = new SubjectMapper();

@@ -31,21 +31,28 @@ export class HeadComponent implements OnInit {
     private events: EventService
   ) {
     this.canStart = false;
-    events.subjectChanged.subscribe(x=>this.start());
+    events.syllabusLoaded.subscribe((x) => this.start());
+  }
+
+  onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
   }
 
   specSelected() {
+    this.specSelectedKeys = this.specSelectedKeys.filter((el, i, a) => i === a.indexOf(el))
     this.syllabusService.selectMultibleSpec(this.specSelectedKeys);
     console.log('spec');
   }
 
   start() {
-    this.mainSelectedKey = this.syllabusService.activeMainSyllabus.id;
-    this.specSelectedKeys = [];
-    this.syllabusService.selectedSpecSyllabi.forEach((x) =>
-      this.specSelectedKeys.push(x.id)
-    );
-    this.canStart = true;
+    if (!this.canStart) {
+      this.mainSelectedKey = this.syllabusService.activeMainSyllabus.id;
+      this.specSelectedKeys = [];
+      this.syllabusService.selectedSpecSyllabi.forEach((x) =>
+        this.specSelectedKeys.push(x?.id)
+      );
+      this.canStart = true;
+    }
   }
 
   ngOnInit(): void {}

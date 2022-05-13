@@ -9,7 +9,9 @@ namespace Szakdoga.DataLayer.Model
         {
             StudentFinisheds = new HashSet<StudentFinished>();
             ChildSubjects = new HashSet<Subject>();
+            NeededSubjects = new HashSet<Subject>();
             Parents = new HashSet<Subject>();
+            WantedSubjects = new HashSet<Subject>();
         }
 
         public string Id { get; set; } = null!;
@@ -25,6 +27,8 @@ namespace Szakdoga.DataLayer.Model
         public virtual ICollection<StudentFinished> StudentFinisheds { get; set; }
 
         public virtual ICollection<Subject> ChildSubjects { get; set; }
+        public virtual ICollection<Subject> NeededSubjects { get; set; }
         public virtual ICollection<Subject> Parents { get; set; }
+        public virtual ICollection<Subject> WantedSubjects { get; set; }
     }
 }
