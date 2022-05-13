@@ -19,6 +19,7 @@ export class HeadComponent implements OnInit {
   mainSelected(id: string) {
     this.specSelectedKeys=[];
     this.syllabusService?.changeActiveMainSyllabus(id);
+    this.specSelectedKeys = [];
   }
 
   specSyllabikeys() {
@@ -33,23 +34,28 @@ export class HeadComponent implements OnInit {
   ) {
     this.canStart = false;
     events.syllabusLoaded.subscribe((x) => this.start());
+
+
   }
 
   specSelected() {
+    if (!Array.isArray(this.specSelectedKeys))
+      this.specSelectedKeys = [this.specSelectedKeys];
+
     this.syllabusService.selectMultibleSpec(this.specSelectedKeys);
     console.log('spec');
   }
 
   start() {
-    if (!this.canStart) {
-      this.mainSelectedKey = this.syllabusService.activeMainSyllabus.id;
-      this.specSelectedKeys = [];
-      this.syllabusService.selectedSpecSyllabi.forEach((x) =>
-        this.specSelectedKeys.push(x?.id)
-      );
-      this.canStart = true;
-    }
-  }
+    if(!this.canStart){
+    this.mainSelectedKey = this.syllabusService.activeMainSyllabus.id;
+    this.specSelectedKeys = [];
+    this.syllabusService.selectedSpecSyllabi.forEach((x) =>
+      this.specSelectedKeys.push(x.id)
+    );
+    this.canStart = true;
+  }}
+}
 
   ngOnInit(): void {}
 }
