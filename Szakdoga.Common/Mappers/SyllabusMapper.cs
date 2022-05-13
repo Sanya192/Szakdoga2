@@ -37,18 +37,22 @@ namespace Szakdoga.Common.Mappers
 
         public Syllabus? MapToModel(SyllabusDto? dto)
         {
+           return MapToModel(dto, null);
+        }
+
+        public Syllabus? MapToModel(SyllabusDto? dto, Syllabus? reference)
+        {
             if (dto == null)
                 return null;
-            Syllabus model = new()
-            {
-                Id=dto.Id,
-                Name = dto.Name,
-                Length = dto.Length,
-                MustChoseCredit = dto.MustChoseCredit,
-                ChosableCredit = dto.ChosableCredit,
-                StartingSpecSemester = dto.StartingSpecSemester,
-                Parent = dto.Parent
-            };
+            Syllabus model = reference ?? new();
+
+            model.Id = dto.Id;
+            model.Name = dto.Name;
+            model.Length = dto.Length;
+            model.MustChoseCredit = dto.MustChoseCredit;
+            model.ChosableCredit = dto.ChosableCredit;
+            model.StartingSpecSemester = dto.StartingSpecSemester;
+            model.Parent = dto.Parent;
             return model;
         }
     }

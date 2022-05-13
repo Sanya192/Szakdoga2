@@ -7,6 +7,9 @@ using Szakdoga.DataLayer.Model;
 
 namespace Szakdoga.API.Controllers
 {
+    /// <summary>
+    /// Base class for Subject And Syllabus Controller. Defines Crud and assign dependencies.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public abstract class SzakdogaControllerBase<TModel, TDto, TKey> : ControllerBase

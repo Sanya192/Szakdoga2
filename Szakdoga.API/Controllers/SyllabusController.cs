@@ -8,6 +8,9 @@ using Szakdoga.DataLayer.Model;
 
 namespace Szakdoga.API.Controllers
 {
+    /// <summary>
+    /// Controller for handlying Syllabus resource.
+    /// </summary>
     public class SyllabusController : SzakdogaControllerBase<Syllabus, SyllabusDto, string>
     {
         public SyllabusController(ISzakdogaContext context, IMapper<Syllabus, SyllabusDto> mapper) : base(context, mapper)
@@ -25,23 +28,6 @@ namespace Szakdoga.API.Controllers
             if (result == null)
                 this.Response.StatusCode = (int)HttpStatusCode.NotFound;
             return UpdateFinishes(Mapper.MapToDto(result));
-        }
-
-        [HttpGet("AllSpecName/{MainId}")]
-        public Dictionary<string, string> GetRegisteredSpecSyllabiName(string MainId)
-        {
-            return GetSyllabiNamesBasedOn(x =>x.Parent ==MainId);
-        }
-        [HttpGet("AllMainName")]
-        public Dictionary<string, string> GetAllMainSyllabiName()
-        {
-            return GetSyllabiNamesBasedOn(x => x.Parent == null);
-        }
-
-        [HttpGet("AllSpecName")]
-        public Dictionary<string, string> GetAllSpecSyllabiName()
-        {
-            return GetSyllabiNamesBasedOn(x =>x.Parent != null);
         }
 
         public override void Put([FromBody] SyllabusDto value)
@@ -82,7 +68,40 @@ namespace Szakdoga.API.Controllers
                 }
                 Context.Syllabi.Remove(toDelete);
             }
+            Context.SaveChanges();
         }
+
+        /// <summary>
+        /// Get's all Specialization names, that have <paramref name="MainId"/> parent.
+        /// </summary>
+        /// <param name="MainId">The parent syllabi.</param>
+        /// <returns>Id,Name value Dictionary.</returns>
+        [HttpGet("AllSpecName/{MainId}")]
+        public Dictionary<string, string> GetRegisteredSpecSyllabiName(string MainId)
+        {
+            return GetSyllabiNamesBasedOn(x =>x.Parent ==MainId);
+        }
+
+        /// <summary>
+        /// Get's all Main Syllabi names.
+        /// </summary>
+        /// <returns>Id,Name value Dictionary.</returns>
+        [HttpGet("AllMainName")]
+        public Dictionary<string, string> GetAllMainSyllabiName()
+        {
+            return GetSyllabiNamesBasedOn(x => x.Parent == null);
+        }
+
+        /// <summary>
+        /// Get's all Specialization names.
+        /// </summary>
+        /// <returns>Id,Name value Dictionary.</returns>
+        [HttpGet("AllSpecName")]
+        public Dictionary<string, string> GetAllSpecSyllabiName()
+        {
+            return GetSyllabiNamesBasedOn(x =>x.Parent != null);
+        }
+
 
         private Dictionary<string, string> GetSyllabiNamesBasedOn(Func<Syllabus, bool> condition)
         {

@@ -26,16 +26,17 @@ namespace Szakdoga.Common.Mappers
                 Language = (Constants.SubjectLanguage)Enum.Parse(typeof(Constants.SubjectLanguage), model.Language),
             };
 
-            dto.Parents = model?.Parents?.Select(x => x).ToDictionary(x => x.Id, x => x.Name);
+            dto.Parents = model?.Parents?.ToList().Select(x => x).ToDictionary(x => x.Id, x => x.Name);
             return dto;
         }
+
 
         public Subject? MapToModel(SubjectDto? model)
         {
             return this.MapToModel(model, null);
         }
 
-        public Subject? MapToModel(SubjectDto? dto, Subject reference)
+        public Subject? MapToModel(SubjectDto? dto, Subject? reference)
         {
             if (dto == null)
                 return null;
@@ -49,6 +50,11 @@ namespace Szakdoga.Common.Mappers
             // Parents = dto.Parents != null ? dto.Parents?.Select(x => new Subject() { Id = x })?.ToList() : null,
 
             return subject;
+        }
+
+        public Subject? MapToModel(Subject? dto, SubjectDto reference)
+        {
+            throw new NotImplementedException();
         }
     }
 }

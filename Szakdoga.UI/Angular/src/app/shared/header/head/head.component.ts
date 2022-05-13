@@ -55,7 +55,6 @@ export class HeadComponent implements OnInit {
     );
     this.canStart = true;
   }}
-}
 
   ngOnInit(): void {}
 }

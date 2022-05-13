@@ -30,29 +30,18 @@ namespace Szakdoga.API.Controllers
             return GetSubjectsBasedOn(x => x.Id == id).First();
         }
 
-        [HttpGet("SyllabusSubjects/{syllabusId}")]
-        public List<SubjectDto> GetSyllabusSubjects(string syllabusId)
-        {
-            return GetSubjectsBasedOn(x => x.SyllabusId == syllabusId);
-        }
-
-
-        [HttpGet("Optional")]
-        public List<SubjectDto> GetOptionalSubjects()
-        {
-            return GetSubjectsBasedOn(x => x.SyllabusId == null);
-        }
 
         [HttpPost]
         public void Post([FromBody] SubjectDto value)
         {
-            if (Context.Subjects.Find(value.Id) == null)
+            var toEdit = Context.Subjects.Find(value.Id);
+            if (toEdit == null)
             {
                 this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
             else
             {
-                var modelToAdd = Mapper.MapToModel(value)!;
+                var modelToAdd = Mapper.MapToModel(value, toEdit);
                 if (value.Parents != null && value.Parents.Count > 0)
                 {
                     modelToAdd.Parents = value.Parents.Select(x => Context.Subjects.Find(x)).ToList();
@@ -73,7 +62,7 @@ namespace Szakdoga.API.Controllers
         public override void Delete(string id)
         {
             Subject? toDelete = Context.Subjects.Find(id);
-            if (toDelete == null)
+            if (toDelete == null || toDelete.SyllabusId != null)
             {
                 this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
@@ -81,33 +70,66 @@ namespace Szakdoga.API.Controllers
             {
                 Context.StudentFinisheds.RemoveRange(toDelete.StudentFinisheds);
                 Context.Subjects.Remove(toDelete);
+                Context.SaveChanges();
             }
         }
-        [HttpGet("/EqualTable/{targetSyllabus}/{sourceSyllabus}")]
-        public List<EqualsDto> EqualTable(string targetSyllabus, string sourceSyllabus)
-        {
 
-            var q1 = Context.Subjects
+        /// <summary>
+        /// Get all subjects of a <paramref name="syllabusId"/>.
+        /// </summary>
+        /// <param name="syllabusId">The target syllabi</param>
+        /// <returns>A list of subjects.</returns>
+        [HttpGet("SyllabusSubjects/{syllabusId}")]
+        public List<SubjectDto> GetSyllabusSubjects(string syllabusId)
+        {
+            return GetSubjectsBasedOn(x => x.SyllabusId == syllabusId);
+        }
+
+        /// <summary>
+        /// Get all subjects that doesn't have a parent.
+        /// </summary>
+        /// <returns>A list of subjects.</returns>
+        [HttpGet("Optional")]
+        public List<SubjectDto> GetOptionalSubjects()
+        {
+            return GetSubjectsBasedOn(x => x.SyllabusId == null);
+        }
+
+        /// <summary>
+        /// Get's the equality table of 2 syllabi.
+        /// </summary>
+        /// <param name="targetSyllabus">The Target we want to move to.</param>
+        /// <param name="sourceSyllabus">Our current syllabi.</param>
+        /// <returns></returns>
+        [HttpGet("/EqualTable/{targetSyllabus}/{sourceSyllabus}")]
+        public EqualsDto EqualTable(string targetSyllabus, string sourceSyllabus)
+        {
+            EqualsDto result = new EqualsDto()
+            {
+                sourceSyllabusId = sourceSyllabus,
+                targetSyllabusId = targetSyllabus,
+                EqualPairDtos = new List<SubjectEqualPairDto>(),
+            };
+            Context.Subjects
                 .Where(x => x.SyllabusId == targetSyllabus
                     && x.StudentFinisheds.Any(y => y.StudentId == Constants.DefaultUserId))
-                .Select(target => target.NeededSubjects
-                    .Select(needed => new EqualsDto
-                    {
-                        targetSyllabusId = targetSyllabus,
-                        sourceSyllabusId = sourceSyllabus,
-                        targetSubject = Mapper.MapToDto(target),
-                        requiredSubject = Mapper.MapToDto(needed)
-                    }).ToList()).ToList();
-            List<EqualsDto> result = new List<EqualsDto>();
-            foreach (var q in q1)
-            {
-                foreach (var item in q)
-                {
-                    result.Add(item);
-                }
-            }
+                .ToList()
+                .ForEach(target => target.NeededSubjects.ToList()
+                     .ForEach(needed =>
+                     {
+                         result.EqualPairDtos.Add(new SubjectEqualPairDto
+                         {
+                             targetSubject = Mapper.MapToDto(target),
+                             requiredSubject = Mapper.MapToDto(needed),
+                         });
+
+
+
+                     }));
+
             return result;
         }
+
         public static bool PutSubjectToContext(SubjectDto value, ISzakdogaContext Context)
         {
             var mapper = new SubjectMapper();
@@ -142,5 +164,6 @@ namespace Szakdoga.API.Controllers
                 dtoList[i].Finished = Context.StudentFinisheds.Count(x => x.StudentId == Constants.DefaultUserId && x.SubjectId == dtoList[i].Id) > 0;
             return dtoList;
         }
+
     }
 }

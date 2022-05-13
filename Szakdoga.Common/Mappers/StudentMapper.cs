@@ -28,23 +28,24 @@ namespace Szakdoga.Common.Mappers
 
         public Student? MapToModel(StudentDto? dto)
         {
-            if (dto == null)
-                return null;
-            Student student = new()
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                StudentFinisheds = dto.FinishedCourses.Select(x => new StudentFinished()
-                {
-                    Grade = x.Value,
-                    StudentId = dto.Id,
-                    SubjectId = x.Key
-                }).ToList(),
-                Syllabi = dto.Syllabi.Select(x => new Syllabus() { Id = x }).ToList(),
-            };
-            return student;
+            return this.MapToModel(dto, null);
         }
 
-   
+        public Student? MapToModel(StudentDto? dto, Student? reference)
+        {
+            if (dto == null)
+                return null;
+            Student student = reference ?? new();
+            student.Id = dto.Id;
+            student.Name = dto.Name;
+            student.StudentFinisheds = dto.FinishedCourses.Select(x => new StudentFinished()
+            {
+                Grade = x.Value,
+                StudentId = dto.Id,
+                SubjectId = x.Key
+            }).ToList();
+            student.Syllabi = dto.Syllabi.Select(x => new Syllabus() { Id = x }).ToList();
+            return student;
+        }
     }
 }
