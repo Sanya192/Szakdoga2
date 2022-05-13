@@ -23,10 +23,12 @@ export class SyllabiService {
   }
 
   saveSettingsForSyllabi() {
+
     /* localStorage.setItem('selectedMainSylabbusId', this.activeMainSyllabus.id);
      let specName = [];
      this.selectedSpecSyllabi.forEach((x) => specName.push(x.id));
      localStorage.setItem('selectedSpec', JSON.stringify(specName));*/
+
   }
 
   loadSettingsForSyllabi() {
@@ -38,6 +40,7 @@ export class SyllabiService {
     this.selectMultibleSpec(specName);
     this.rest.getMainSyllabusNames().subscribe((x: Record<string, string>) => {
       this.allMainSyllabi = x;
+      console.log(x);
       this.rest
         .getSpecSyllabusNames(mainId)
         .subscribe((x: Record<string, string>) => {
@@ -54,19 +57,23 @@ export class SyllabiService {
       this.saveSettingsForSyllabi();
       this.rest
         .getSpecSyllabusNames(x.id)
+
         .subscribe((x: Record<string, string>) => {
           this.allSpecForMain = x;
           this.events.triggerSyllabusLoad();
+
         });
     });
   }
 
   selectMultibleSpec(ids: string[]) {
     console.log(ids);
+     this.selectedSpecSyllabi = [];
     if (ids != null) {
       ids?.forEach((x) => this.selectSpec(x));
       this.events.triggerSubjectChanged();
     }
+   
   }
 
   selectSpec(id: string) {

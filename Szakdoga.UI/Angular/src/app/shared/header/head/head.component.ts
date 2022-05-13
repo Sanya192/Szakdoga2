@@ -33,11 +33,13 @@ export class HeadComponent implements OnInit {
   ) {
     this.canStart = false;
     events.syllabusLoaded.subscribe((x) => this.start());
+
   }
 
   specSelected() {
     if (!Array.isArray(this.specSelectedKeys))
       this.specSelectedKeys = [this.specSelectedKeys];
+
     this.syllabusService.selectMultibleSpec(this.specSelectedKeys);
     console.log('spec');
   }
@@ -51,6 +53,7 @@ export class HeadComponent implements OnInit {
     );
     this.canStart = true;
   }}
+}
 
   ngOnInit(): void {}
 }

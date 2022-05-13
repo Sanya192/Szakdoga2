@@ -1,8 +1,8 @@
 <div class="header-box" *ngIf="canStart">
   <mat-form-field class="header-item" appearance="fill">
     <mat-label>Kiválasztott tanterv</mat-label>
-    <mat-select [(ngModel)]="mainSelectedKey">
-      <mat-option  *ngFor="let syllabi of mainSyllabikeys()" [value]="syllabi"
+    <mat-select [(value)]="mainSelectedKey">
+      <mat-option *ngFor="let syllabi of mainSyllabikeys()" [value]="syllabi"
                   (onSelectionChange)="mainSelected(syllabi)">
         {{syllabusService.allMainSyllabi[syllabi]}}
       </mat-option>
@@ -10,9 +10,8 @@
   </mat-form-field>
   <mat-form-field class="header-item" appearance="fill">
     <mat-label>Kiválasztott specializáció</mat-label>
-    <mat-select [(ngModel)]="specSelectedKeys" (selectionChange)="specSelected()" multiple>
-      <mat-option *ngFor="let syllabi of specSyllabikeys()" [value]="syllabi"
-                  >
+    <mat-select [(ngModel)]="specSelectedKeys" multiple >
+      <mat-option (onSelectionChange)="specSelected()" *ngFor="let syllabi of specSyllabikeys()" [value]="syllabi">
         {{syllabusService.allSpecForMain[syllabi]}}
       </mat-option>
     </mat-select>

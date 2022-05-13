@@ -42,12 +42,14 @@ namespace Szakdoga.API.Tests.Controllers
         {
             //Given
             SetUpMockedContextSubject(testData);
+            MockedContext.StudentFinisheds.Returns(x=>SetUpMockedSetGeneral(new List<StudentFinished>()));
 
             //When && Then
             foreach (var item in testData)
             {
                 var result = Controller.Get(item.Id);
                 Assert.AreEqual(item.Id, result.Id);
+                SetUpMockedContextSubject(testData);
             }
 
         }
