@@ -104,6 +104,11 @@ namespace Szakdoga.API.Controllers
         [HttpGet("/EqualTable/{targetSyllabus}/{sourceSyllabus}")]
         public EqualsDto EqualTable(string targetSyllabus, string sourceSyllabus)
         {
+            if(targetSyllabus== sourceSyllabus)
+            {
+                this.Response.StatusCode=(int)HttpStatusCode.BadRequest;
+                return null;
+            }
             EqualsDto result = new EqualsDto()
             {
                 sourceSyllabusId = sourceSyllabus,
@@ -122,9 +127,6 @@ namespace Szakdoga.API.Controllers
                              targetSubject = Mapper.MapToDto(target),
                              requiredSubject = Mapper.MapToDto(needed),
                          });
-
-
-
                      }));
 
             return result;
