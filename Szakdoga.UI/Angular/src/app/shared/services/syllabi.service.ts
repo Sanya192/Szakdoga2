@@ -48,7 +48,9 @@ export class SyllabiService {
   }
 
   changeActiveMainSyllabus(id: string) {
+    this.selectedSpecSyllabi=[];
     this.rest.getSyllabus(id).subscribe((x: Syllabus) => {
+
       this.activeMainSyllabus = x;
       console.log(x);
       this.events.triggerSubjectChanged();

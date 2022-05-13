@@ -79,6 +79,7 @@ namespace Szakdoga.API.Controllers
             }
             else
             {
+                Context.StudentFinisheds.RemoveRange(toDelete.StudentFinisheds);
                 Context.Subjects.Remove(toDelete);
             }
         }

@@ -17,6 +17,7 @@ export class HeadComponent implements OnInit {
   mainSelectedKey: string;
 
   mainSelected(id: string) {
+    this.specSelectedKeys=[];
     this.syllabusService?.changeActiveMainSyllabus(id);
   }
 
@@ -34,12 +35,7 @@ export class HeadComponent implements OnInit {
     events.syllabusLoaded.subscribe((x) => this.start());
   }
 
-  onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-  }
-
   specSelected() {
-    this.specSelectedKeys = this.specSelectedKeys.filter((el, i, a) => i === a.indexOf(el))
     this.syllabusService.selectMultibleSpec(this.specSelectedKeys);
     console.log('spec');
   }
