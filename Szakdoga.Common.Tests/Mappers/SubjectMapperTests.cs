@@ -1,9 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Szakdoga.BusinessLayer.Utils;
 using Szakdoga.Common.Dto;
 using Szakdoga.Common.Mappers;
@@ -75,7 +71,7 @@ namespace Szakdoga.Common.Tests.Mappers
             Assert.True(Object.ReferenceEquals(model, result));
         }
 
-        private static object[] _subjectModels = new object[]
+        private static readonly object[] _subjectModels = new object[]
         {
             new Subject()
             {
@@ -87,7 +83,7 @@ namespace Szakdoga.Common.Tests.Mappers
             },
 
         };
-        private static object[] _subjectDtos = new object[]
+        private static readonly object[] _subjectDtos = new object[]
         {
             new SubjectDto()
             {

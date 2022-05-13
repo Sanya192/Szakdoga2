@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Szakdoga.API</name>
+    </assembly>
+    <members>
+        <member name="T:Szakdoga.API.Controllers.StudentController">
+            <summary>
+            Controller for handling student resource.
+            Currently this table only has one record which id is <see cref="F:Szakdoga.BusinessLayer.Utils.Constants.DefaultUserId"/>
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.#ctor(Szakdoga.DataLayer.DAL.ISzakdogaContext,Szakdoga.Common.Mappers.IMapper{Szakdoga.DataLayer.Model.Student,Szakdoga.Common.Dto.StudentDto})">
+            <summary>
+            Maps the dependecies.
+            </summary>
+            <param name="context"><see cref="P:Szakdoga.API.Controllers.StudentController.Context"/></param>
+            <param name="mapper"><see cref="P:Szakdoga.API.Controllers.StudentController.Mapper"/></param>
+        </member>
+        <member name="P:Szakdoga.API.Controllers.StudentController.Context">
+            <summary>
+            Db context for queries.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.Controllers.StudentController.Mapper">
+            <summary>
+            Mapper used for type conversion.
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.Get">
+            <summary>
+            Gets all of the students.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.GetFinishedSubjects">
+            <summary>
+            Get's all subjects that a student finished. 
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.GetFinishedSubjects(System.String)">
+            <summary>
+            Get's all subjects that a student finished within a specified syllabus.
+            </summary>
+            <param name="syllabusID">The id of the target syllabus.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.GetFinishForUser(System.String)">
+            <summary>
+            Get's if the current user Finished the subject.
+            </summary>
+            <param name="subjectID">The target subject.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.SetFinishForUser(System.String)">
+            <summary>
+            Set's the subject. finished
+            </summary>
+            <param name="subjectID">The id of the subject.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.StudentController.DeSetFinishForUser(System.String)">
+            <summary>
+            Set's the subject unfinished.
+            </summary>
+            <param name="subjectID">The id of the subject.</param>
+        </member>
+        <member name="T:Szakdoga.API.Controllers.SubjectController">
+            <summary>
+            Controller for handlying Subject resource.
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.#ctor(Szakdoga.DataLayer.DAL.ISzakdogaContext,Szakdoga.Common.Mappers.IMapper{Szakdoga.DataLayer.Model.Subject,Szakdoga.Common.Dto.SubjectDto})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.Get">
+            <summary>
+            Gets All Subjects
+            </summary>
+            <returns>A list containing Subjects.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.Get(System.String)">
+            <summary>
+            Gets One Subject based on Id.
+            </summary>
+            <returns>A Subjects.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.Post(Szakdoga.Common.Dto.SubjectDto)">
+            <summary>
+            Modifies an existing Subject.
+            </summary>
+            <param name="value">The existing subject.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.Put(Szakdoga.Common.Dto.SubjectDto)">
+            <summary>
+            Creates a Subject based on the Input.
+            </summary>
+            <param name="value">The value of a subject.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.Delete(System.String)">
+            <summary>
+            Deletes a Subject based on the Id.
+            </summary>
+            <param name="id">The id of the object that needs to be deleted.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.GetSyllabusSubjects(System.String)">
+            <summary>
+            Get all subjects of a <paramref name="syllabusId"/>.
+            </summary>
+            <param name="syllabusId">The target syllabi</param>
+            <returns>A list of subjects.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.GetOptionalSubjects">
+            <summary>
+            Get all subjects that doesn't have a parent.
+            </summary>
+            <returns>A list of subjects.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.EqualTable(System.String,System.String)">
+            <summary>
+            Get's the equality table of 2 syllabi.
+            </summary>
+            <param name="targetSyllabus">The Target we want to move to.</param>
+            <param name="sourceSyllabus">Our current syllabi.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SubjectController.PutSubjectToContext(Szakdoga.Common.Dto.SubjectDto,Szakdoga.DataLayer.DAL.ISzakdogaContext)">
+            <summary>
+            Puts an object to the database.
+            </summary>
+            <param name="value"> The subject to be added.</param>
+            <param name="Context"> The db context</param>
+            <returns></returns>
+        </member>
+        <member name="T:Szakdoga.API.Controllers.SyllabusController">
+            <summary>
+            Controller for handlying Syllabus resource.
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.#ctor(Szakdoga.DataLayer.DAL.ISzakdogaContext,Szakdoga.Common.Mappers.IMapper{Szakdoga.DataLayer.Model.Syllabus,Szakdoga.Common.Dto.SyllabusDto})">
+            <inheritdoc />
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.Get">
+            <summary>
+            Gets all of the Syllabi.
+            </summary>
+            <returns>A list containing all syllabi.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.Get(System.String)">
+            <summary>
+            Gets one of the Syllabi.
+            </summary>
+            <param name="id">The requested syllabus ID.</param>
+            <returns>A SyllabusDto.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.Put(Szakdoga.Common.Dto.SyllabusDto)">
+            <summary>
+            Creates a Syllabus in the Database based on the input.
+            </summary>
+            <param name="value">The syllabus.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.Delete(System.String)">
+            <summary>
+            Deletes a Syllabus based on the input.
+            </summary>
+            <param name="id">The Id of the Syllabus to be deleted.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.GetRegisteredSpecSyllabiName(System.String)">
+            <summary>
+            Get's all Specialization names, that have <paramref name="MainId"/> parent.
+            </summary>
+            <param name="MainId">The parent syllabi.</param>
+            <returns>Id,Name value Dictionary.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.GetAllMainSyllabiName">
+            <summary>
+            Get's all Main Syllabi names.
+            </summary>
+            <returns>Id,Name value Dictionary.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SyllabusController.GetAllSpecSyllabiName">
+            <summary>
+            Get's all Specialization names.
+            </summary>
+            <returns>Id,Name value Dictionary.</returns>
+        </member>
+        <member name="T:Szakdoga.API.Controllers.SzakdogaControllerBase`3">
+            <summary>
+            Base class for Subject And Syllabus Controller. Defines Crud and assign dependencies.
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SzakdogaControllerBase`3.#ctor(Szakdoga.DataLayer.DAL.ISzakdogaContext,Szakdoga.Common.Mappers.IMapper{`0,`1})">
+            <summary>
+            Maps the dependecies.
+            </summary>
+            <param name="context"><see cref="P:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Context"/></param>
+            <param name="mapper"><see cref="P:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Mapper"/></param>
+        </member>
+        <member name="P:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Context">
+            <summary>
+            Db context for queries.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Mapper">
+            <summary>
+            Mapper used for type conversion.
+            </summary>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Get">
+            <summary>
+            Gets all <typeparamref name="TDto"/> objects.
+            </summary>
+            <returns>An <typeparamref name="TDto"/> collection.</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Get(`2)">
+            <summary>
+            Gets <typeparamref name="TDto"/> object by id>
+            </summary>
+            <param name="id"> The id.</param>
+            <returns>The <typeparamref name="TDto"/> object</returns>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Put(`1)">
+            <summary>
+            Adds a new object to the Database.
+            </summary>
+            <param name="value">THe value to be added.</param>
+        </member>
+        <member name="M:Szakdoga.API.Controllers.SzakdogaControllerBase`3.Delete(`2)">
+            <summary>
+            Deletes a record of the database.
+            </summary>
+            <param name="id">The key of the object to be deleted.</param>
+        </member>
+        <member name="T:Szakdoga.API.QueryDtos.EqualsDto">
+            <summary>
+            A DTO for transfering EqualentSubjectData.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.EqualsDto.SourceSyllabusId">
+            <summary>
+            The source Syllabus.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.EqualsDto.TargetSyllabusId">
+            <summary>
+            The target Syllabus.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.EqualsDto.SourceSyllabusName">
+            <summary>
+            The name of the source Syllabus.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.EqualsDto.TargetSyllabusName">
+            <summary>
+            The name of the target Syllabus.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.EqualsDto.EqualPairDtos">
+            <summary>
+            List of Equal subjects.
+            </summary>
+        </member>
+        <member name="T:Szakdoga.API.QueryDtos.SubjectEqualPairDto">
+            <summary>
+            Dto for 2 subject that are equal.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.SubjectEqualPairDto.TargetSubject">
+            <summary>
+            The TargetSubject
+            </summary>
+        </member>
+        <member name="P:Szakdoga.API.QueryDtos.SubjectEqualPairDto.RequiredSubject">
+            <summary>
+            The required Subject.
+            </summary>
+        </member>
+    </members>
+</doc>

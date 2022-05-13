@@ -26,15 +26,15 @@ export class RestClientService {
     return this.http.get(this.url + '/Syllabus/AllMainName');
   }
 
-  getFinishSubject(id: string) {
-    return this.http.get(this.url + '/Student/GetFinishForUser/' + id);
-  }
-
   setFinishSubject(id: string) {
     return this.http.get(this.url + '/Student/SetFinishForUser/' + id);
   }
 
   deSetFinishSubject(id: string) {
     return this.http.get(this.url + '/Student/deSetFinishForUser/' + id);
+  }
+
+  getEqualsTable(sourceId: string, targetId: string) {
+    return this.http.get(this.url + '/Subject/EqualTable/'+targetId+'/'+sourceId);
   }
 }

@@ -1,30 +1,37 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Szakdoga.BusinessLayer.Utils
 {
+    /// <summary>
+    /// A class for storing constant values.
+    /// </summary>
     public static class Constants
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum SubjectType
-        {
-            Mandatory,
-            TypeA,
-            TypeB,
-            Optional
-        }
+        /// <summary>
+        /// The languages of the subjects.
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum SubjectLanguage
         {
+            /// <summary>
+            /// Hungarian.
+            /// </summary>
             Hungarian,
+            /// <summary>
+            /// NotSpecified Languages.
+            /// </summary>
             Other
         }
-        public static SubjectLanguage DefaultLanguage = SubjectLanguage.Hungarian;
-        public static int DefaultUserId = 1;
+        /// <summary>
+        /// The default Language for subjects.
+        /// </summary>
+        public static readonly SubjectLanguage DefaultLanguage = SubjectLanguage.Hungarian;
+
+        /// <summary>
+        /// The default user id.
+        /// It's used because this program does not handles multiple Users.
+        /// </summary>
+        public static readonly int DefaultUserId = 1;
     }
 }

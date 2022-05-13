@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Szakdoga.API.Controllers;
 using Szakdoga.BusinessLayer.Utils;
 using Szakdoga.Common.Dto;
@@ -17,7 +14,7 @@ namespace Szakdoga.API.Tests.Controllers
     public class SubjectControllerTests : ControllerTestsBase<Subject, SubjectDto, string>
     {
         [OneTimeSetUp]
-        public void OneTimeSetup()
+        public void OneTimeChildSetup()
         {
             Controller = new SubjectController(MockedContext, MockedMapper);
         }
@@ -42,7 +39,7 @@ namespace Szakdoga.API.Tests.Controllers
         {
             //Given
             SetUpMockedContextSubject(testData);
-            MockedContext.StudentFinisheds.Returns(x=>SetUpMockedSetGeneral(new List<StudentFinished>()));
+            MockedContext.StudentFinisheds.Returns(x => SetUpMockedSetGeneral(new List<StudentFinished>()));
 
             //When && Then
             foreach (var item in testData)
@@ -72,7 +69,7 @@ namespace Szakdoga.API.Tests.Controllers
             mockedSet.Received(testDataDto.Count).Add(Arg.Any<Subject>());
         }
 
-        private static object[] _subjectData = new object[]{ new List<Subject>{
+        private static readonly object[] _subjectData = new object[]{ new List<Subject>{
             new Subject()
                 {
                     Id = "SX",

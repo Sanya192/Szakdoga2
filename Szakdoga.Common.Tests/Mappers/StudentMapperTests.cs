@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Szakdoga.Common.Dto;
 using Szakdoga.Common.Mappers;
 using Szakdoga.DataLayer.Model;
@@ -31,12 +28,12 @@ namespace Szakdoga.Common.Tests.Mappers
             var result = _mapper.MapToDto(model);
 
             //Then
-            Assert.AreEqual(model.Id, result.Id);
-            Assert.AreEqual(model.Name, result.Name);
-            Assert.AreEqual(model.StudentFinisheds.First().StudentId, result.Id);
-            Assert.AreEqual(model.StudentFinisheds.First().SubjectId, result.FinishedCourses.First().Key);
-            Assert.AreEqual(model.StudentFinisheds.First().Grade, result.FinishedCourses.First().Value);
-            Assert.AreEqual(model.Syllabi.First().Id, result.Syllabi.First());
+            Assert.AreEqual(model.Id, result?.Id);
+            Assert.AreEqual(model.Name, result?.Name);
+            Assert.AreEqual(model.StudentFinisheds.First().StudentId, result?.Id);
+            Assert.AreEqual(model.StudentFinisheds.First().SubjectId, result?.FinishedCourses?.First().Key);
+            Assert.AreEqual(model.StudentFinisheds.First().Grade, result?.FinishedCourses?.First().Value);
+            Assert.AreEqual(model.Syllabi.First().Id, result?.Syllabi?.First());
 
 
         }
@@ -49,17 +46,17 @@ namespace Szakdoga.Common.Tests.Mappers
             var result = _mapper.MapToModel(dto);
 
             //Then
-            Assert.AreEqual(dto.Id, result.Id);
-            Assert.AreEqual(dto.Name, result.Name);
-            Assert.AreEqual(dto.Id, result.StudentFinisheds.First().StudentId);
-            Assert.AreEqual(dto.FinishedCourses.First().Key, result.StudentFinisheds.First().SubjectId);
-            Assert.AreEqual(dto.FinishedCourses.First().Value, result.StudentFinisheds.First().Grade);
-            Assert.AreEqual(dto.Syllabi.First(),result.Syllabi.First().Id);
+            Assert.AreEqual(dto.Id, result?.Id);
+            Assert.AreEqual(dto.Name, result?.Name);
+            Assert.AreEqual(dto.Id, result?.StudentFinisheds.First().StudentId);
+            Assert.AreEqual(dto.FinishedCourses?.First().Key, result?.StudentFinisheds.First().SubjectId);
+            Assert.AreEqual(dto.FinishedCourses?.First().Value, result?.StudentFinisheds.First().Grade);
+            Assert.AreEqual(dto.Syllabi?.First(), result.Syllabi.First().Id);
 
 
         }
 
-        private static object[] studentModels = new object[]
+        private static readonly object[] studentModels = new object[]
         {
             new Student()
             {
@@ -82,7 +79,7 @@ namespace Szakdoga.Common.Tests.Mappers
             },
 
         };
-        private static object[] studentDtos = new object[]
+        private static readonly object[] studentDtos = new object[]
         {
             new StudentDto()
             {

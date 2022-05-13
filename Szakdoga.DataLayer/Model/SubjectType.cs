@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Szakdoga.DataLayer.Model
+﻿namespace Szakdoga.DataLayer.Model
 {
     public partial class SubjectType
     {

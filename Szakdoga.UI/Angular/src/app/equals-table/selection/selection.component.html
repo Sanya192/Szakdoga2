@@ -1,0 +1,23 @@
+<h1>Kreditátviteli adatok lekérése</h1><br>
+
+<div class="equals-selection" *ngIf="loaded">
+  <mat-form-field class="equals-select">
+    <mat-label>Jelenlegi tanterv</mat-label>
+    <mat-select [(value)]="sourceSyllabusId">
+      <mat-option *ngFor="let syllabi of getSyllabusIds();let i = index" [value]="syllabi">
+        {{getSyllabusValues()[i]}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="equals-select">
+    <mat-label>Cél tanterv</mat-label>
+    <mat-select [(value)]="targetSyllabusId">
+      <mat-option *ngFor="let syllabi of getSyllabusIds();let i = index" [value]="syllabi">
+        {{getSyllabusValues()[i]}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="equals-button" (click)="fetchTable()" mat-raised-button color="primary">Adatok lekérése</button>
+</div>
+
+

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Szakdoga.Common.Dto;
+﻿using Szakdoga.Common.Dto;
 using Szakdoga.DataLayer.Model;
 
 namespace Szakdoga.Common.Mappers
 {
+    /// <inheritdoc/>.
     public class StudentMapper : IMapper<Student, StudentDto>
     {
+        /// <inheritdoc/>
         public StudentDto? MapToDto(Student? model)
         {
             if (model == null)
@@ -26,11 +23,13 @@ namespace Szakdoga.Common.Mappers
             return output;
         }
 
+        /// <inheritdoc/>.
         public Student? MapToModel(StudentDto? dto)
         {
             return this.MapToModel(dto, null);
         }
 
+        /// <inheritdoc/>
         public Student? MapToModel(StudentDto? dto, Student? reference)
         {
             if (dto == null)
@@ -38,13 +37,15 @@ namespace Szakdoga.Common.Mappers
             Student student = reference ?? new();
             student.Id = dto.Id;
             student.Name = dto.Name;
-            student.StudentFinisheds = dto.FinishedCourses.Select(x => new StudentFinished()
-            {
-                Grade = x.Value,
-                StudentId = dto.Id,
-                SubjectId = x.Key
-            }).ToList();
-            student.Syllabi = dto.Syllabi.Select(x => new Syllabus() { Id = x }).ToList();
+            if (dto.FinishedCourses != null)
+                student.StudentFinisheds = dto.FinishedCourses.Select(x => new StudentFinished()
+                {
+                    Grade = x.Value,
+                    StudentId = dto.Id,
+                    SubjectId = x.Key
+                }).ToList();
+            if (dto.Syllabi != null)
+                student.Syllabi = dto.Syllabi.Select(x => new Syllabus() { Id = x }).ToList();
             return student;
         }
     }

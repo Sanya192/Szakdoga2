@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Szakdoga.DataLayer.DAL;
-using Szakdoga.Common.Mappers;
-using Szakdoga.DataLayer.Model;
 using Szakdoga.Common.Dto;
+using Szakdoga.Common.Mappers;
+using Szakdoga.DataLayer.DAL;
+using Szakdoga.DataLayer.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +13,14 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var filePath = Path.Combine(AppContext.BaseDirectory, "SubjectTree.xml");
+    c.IncludeXmlComments(filePath, includeControllerXmlComments: true);
+    c.UseAllOfForInheritance();
+    
+
+});
 builder.Services.AddDbContext<ISzakdogaContext, SzakdogaContext>(options
     => options.UseLazyLoadingProxies()
               .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -30,12 +37,13 @@ app.UseCors(options =>
                                 .WithOrigins(builder.Configuration["appUrls"])
                                 );
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Subject Tree V1");
+});
+
 
 app.UseHttpsRedirection();
 

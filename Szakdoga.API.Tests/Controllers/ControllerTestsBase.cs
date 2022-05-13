@@ -1,13 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using NSubstitute;
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Szakdoga.API.Controllers;
 using Szakdoga.Common.Mappers;
 using Szakdoga.DataLayer.DAL;
-using Szakdoga.DataLayer.Model;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Szakdoga.Common.Dto;
 
 namespace Szakdoga.API.Tests.Controllers
 {

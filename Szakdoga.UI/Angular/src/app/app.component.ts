@@ -9,10 +9,7 @@ import { EventService } from './shared/services/event.service';
 })
 export class AppComponent {
   title = 'Angular';
-  sampleSubject = Subject.SampleSubject();
-  loaded = false;
 
-  constructor(private event: EventService) {
-    event.subjectChanged.subscribe(x=>this.loaded=true);
+  constructor() {
   }
 }

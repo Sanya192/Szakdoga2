@@ -1,17 +1,33 @@
-﻿using Szakdoga.Common.Dto;
-
-namespace Szakdoga.API.QueryDtos
+﻿namespace Szakdoga.API.QueryDtos
 {
+    /// <summary>
+    /// A DTO for transfering EqualentSubjectData.
+    /// </summary>
     public class EqualsDto
     {
-        public string sourceSyllabusId { get; set; }
-        public string targetSyllabusId { get; set; }
-        public List<SubjectEqualPairDto> EqualPairDtos { get; set; }
-    }
+        /// <summary>
+        /// The source Syllabus.
+        /// </summary>
+        public string SourceSyllabusId { get; set; }
 
-    public class SubjectEqualPairDto
-    {
-        public SubjectDto targetSubject { get; set; }
-        public SubjectDto requiredSubject { get; set; }
+        /// <summary>
+        /// The target Syllabus.
+        /// </summary>
+        public string TargetSyllabusId { get; set; }
+
+        /// <summary>
+        /// The name of the source Syllabus.
+        /// </summary>
+        public string SourceSyllabusName { get; set; }
+
+        /// <summary>
+        /// The name of the target Syllabus.
+        /// </summary>
+        public string TargetSyllabusName { get; set; }
+
+        /// <summary>
+        /// List of Equal subjects.
+        /// </summary>
+        public List<SubjectEqualPairDto> EqualPairDtos { get; set; }
     }
 }

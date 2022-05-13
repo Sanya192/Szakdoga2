@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Szakdoga.BusinessLayer.Utils;
+﻿using Szakdoga.BusinessLayer.Utils;
 using Szakdoga.Common.Dto;
 using Szakdoga.DataLayer.Model;
 
 namespace Szakdoga.Common.Mappers
 {
+    /// <inheritdoc/>.
     public class SubjectMapper : IMapper<Subject, SubjectDto>
     {
+        /// <inheritdoc/>.
         public SubjectDto? MapToDto(Subject? model)
         {
             if (model == null)
@@ -22,20 +19,20 @@ namespace Szakdoga.Common.Mappers
                 Kredit = model.Kredit,
                 RecommendedSemester = model.RecommendedSemester,
                 SyllabusId = model.SyllabusId,
-                SubjectType = model.Type != null ? (Constants.SubjectType)Enum.Parse(typeof(Constants.SubjectType), model?.Type?.Name) : null,
                 Language = (Constants.SubjectLanguage)Enum.Parse(typeof(Constants.SubjectLanguage), model.Language),
             };
 
-            dto.Parents = model?.Parents?.ToList().Select(x => x).ToDictionary(x => x.Id, x => x.Name);
+            dto.Parents = model?.Parents?.ToList()?.Select(x => x)?.ToDictionary(x => x.Id, x => x.Name);
             return dto;
         }
 
-
+        /// <inheritdoc/>.
         public Subject? MapToModel(SubjectDto? model)
         {
             return this.MapToModel(model, null);
         }
 
+        /// <inheritdoc/>.
         public Subject? MapToModel(SubjectDto? dto, Subject? reference)
         {
             if (dto == null)
@@ -47,11 +44,11 @@ namespace Szakdoga.Common.Mappers
             subject.RecommendedSemester = dto.RecommendedSemester?.ToString();
             subject.SyllabusId = dto.SyllabusId;
             subject.Language = dto.Language.ToString();
-            // Parents = dto.Parents != null ? dto.Parents?.Select(x => new Subject() { Id = x })?.ToList() : null,
 
             return subject;
         }
 
+        /// <inheritdoc/>.
         public Subject? MapToModel(Subject? dto, SubjectDto reference)
         {
             throw new NotImplementedException();

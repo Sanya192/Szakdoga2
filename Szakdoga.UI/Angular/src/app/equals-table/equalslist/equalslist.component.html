@@ -1,0 +1,59 @@
+<div *ngIf="equalList!=null">
+
+  <div class="equal-list-head">
+    <mat-card class="equal-list-title">
+      <mat-card-title-group>
+        <mat-card-title>{{equalList.sourceSyllabusName}}</mat-card-title>
+      </mat-card-title-group>
+      <mat-card-content>
+        <div>{{equalList.sourceSyllabusId}}</div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="equal-list-title">
+      <mat-card-title-group>
+        <mat-card-title>{{equalList.targetSyllabusName}}</mat-card-title>
+      </mat-card-title-group>
+      <mat-card-content>
+        <div>{{equalList.targetSyllabusId}}</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <table mat-table [dataSource]="elementData" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>Sorszám</th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="firstNameAndCode">
+      <th mat-header-cell *matHeaderCellDef>Teljesített tárgy Neptun kódja és neve</th>
+      <td mat-cell *matCellDef="let element"> {{element.firstNameAndCode}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="firstCredit">
+      <th mat-header-cell *matHeaderCellDef> Kredit</th>
+      <td mat-cell *matCellDef="let element"> {{element.firstCredit}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="secondNameAndCode">
+      <th mat-header-cell *matHeaderCellDef>Cél tárgy Neptun kódja és neve</th>
+      <td mat-cell *matCellDef="let element"> {{element.secondNameAndCode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="secondCredit">
+      <th mat-header-cell *matHeaderCellDef>Kredit</th>
+      <td mat-cell *matCellDef="let element"> {{element.secondCredit}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+
+

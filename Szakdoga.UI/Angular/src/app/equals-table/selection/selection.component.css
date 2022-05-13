@@ -1,0 +1,22 @@
+.equals-selection {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.equals-select {
+  margin-left: 2vw;
+  margin-right: 2vw;
+  width: 30%;
+}
+
+.equals-button {
+  margin-left: 10vw;
+}
+
+h1 {
+  margin: auto;
+  justify-content: center;
+  display: flex;
+}

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Szakdoga.Common.Dto;
+﻿using Szakdoga.Common.Dto;
 using Szakdoga.DataLayer.Model;
 
 namespace Szakdoga.Common.Mappers
 {
+    /// <inheritdoc/>.
     public class SyllabusMapper : IMapper<Syllabus, SyllabusDto>
     {
+        /// <inheritdoc/>.
         public SyllabusDto? MapToDto(Syllabus? model)
         {
             if (model == null)
@@ -27,19 +24,25 @@ namespace Szakdoga.Common.Mappers
             var subjects = model.Subjects?.ToList();
             if (subjects != null && subjects.Count > 0)
             {
-                SubjectMapper subjectMapper = new SubjectMapper();
+                SubjectMapper subjectMapper = new();
                 dto.Subjects = new List<SubjectDto>();
                 foreach (var subject in subjects)
-                    dto.Subjects.Add(subjectMapper.MapToDto(subject));
+                {
+                    var sub = subjectMapper.MapToDto(subject);
+                    if (sub != null)
+                        dto.Subjects.Add(sub);
+                }
             }
             return dto;
         }
 
+        /// <inheritdoc/>.
         public Syllabus? MapToModel(SyllabusDto? dto)
         {
-           return MapToModel(dto, null);
+            return MapToModel(dto, null);
         }
 
+        /// <inheritdoc/>.
         public Syllabus? MapToModel(SyllabusDto? dto, Syllabus? reference)
         {
             if (dto == null)

@@ -22,6 +22,7 @@ export class SubjectService {
     events.subjectChanged.subscribe(() => {
       this.resetSubjects();
     });
+    
   }
 
   getOtherSubjectsBySemester(): Subject[][] {

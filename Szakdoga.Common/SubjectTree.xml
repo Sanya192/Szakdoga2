@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Szakdoga.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Szakdoga.Common.Dto.StudentDto">
+            <summary>
+            Dto for handling the 1 student.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.StudentDto.Id">
+            <summary>
+            The Id of the student.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.StudentDto.Name">
+            <summary>
+            The name of the student.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.StudentDto.FinishedCourses">
+            <summary>
+            Courses that the student finished.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.StudentDto.Syllabi">
+            <summary>
+            Courses that the sttudent has.
+            </summary>
+        </member>
+        <member name="T:Szakdoga.Common.Dto.SubjectDto">
+            <summary>
+            A dto object used for transfering subject data.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.Id">
+            <summary>
+            The Id of the subject. Can't be null.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.Name">
+            <summary>
+            The name of the subject.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.Kredit">
+            <summary>
+            The kredit numbeer of the subject.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.RecommendedSemester">
+            <summary>
+            The Recommended Semester for taking the Subject.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.SyllabusId">
+            <summary>
+            The Id of which syllabus belongs to.
+            If null it's an optional class.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.Finished">
+            <summary>
+            True if finished class.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.Parents">
+            <summary>
+            The pre requirements of the class.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SubjectDto.Language">
+            <summary>
+            The language of the class. Default is <see cref="F:Szakdoga.BusinessLayer.Utils.Constants.DefaultLanguage"/>
+            </summary>
+        </member>
+        <member name="T:Szakdoga.Common.Dto.SyllabusDto">
+            <summary>
+            A dto for transfaring syllabus data.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.Id">
+            <summary>
+            The id of syllabus. Can't be null.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.Name">
+            <summary>
+            The Name of Syllabus.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.Length">
+            <summary>
+            The length in Semesters.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.MustChoseCredit">
+            <summary>
+            Kötelezően választható kredit.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.ChosableCredit">
+            <summary>
+            Választható kredit.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.StartingSpecSemester">
+            <summary>
+            The semester which specializations starts.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.Parent">
+            <summary>
+            The Sylabbus of this Syllabus.
+            </summary>
+        </member>
+        <member name="P:Szakdoga.Common.Dto.SyllabusDto.Subjects">
+            <summary>
+            List of it's Subjects.
+            </summary>
+        </member>
+        <member name="T:Szakdoga.Common.Mappers.IMapper`2">
+            <summary>
+            Maps between <typeparamref name="TModel"/> and<typeparamref name="TDto"/>.
+            </summary>
+            <typeparam name="TModel">The modelType.</typeparam>
+            <typeparam name="TDto">The Dto</typeparam>
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.IMapper`2.MapToDto(`0)">
+            <summary>
+            Maps from Model to Dto.
+            </summary>
+            <param name="model">The input model.</param>
+            <returns>The output dto.</returns>
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.IMapper`2.MapToModel(`1)">
+            <summary>
+            Maps from Dto to model.
+            </summary>
+            <param name="dto">The input dto.</param>
+            <returns>The converted <typeparamref name="TModel"/>.</returns>
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.IMapper`2.MapToModel(`1,`0)">
+            <summary>
+            Maps from Dto to model and with reference.
+            </summary>
+            <param name="dto">The input dto.</param>
+            <param name="reference">The converted <typeparamref name="TModel"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Szakdoga.Common.Mappers.StudentMapper">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.StudentMapper.MapToDto(Szakdoga.DataLayer.Model.Student)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.StudentMapper.MapToModel(Szakdoga.Common.Dto.StudentDto)">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.StudentMapper.MapToModel(Szakdoga.Common.Dto.StudentDto,Szakdoga.DataLayer.Model.Student)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Szakdoga.Common.Mappers.SubjectMapper">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SubjectMapper.MapToDto(Szakdoga.DataLayer.Model.Subject)">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SubjectMapper.MapToModel(Szakdoga.Common.Dto.SubjectDto)">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SubjectMapper.MapToModel(Szakdoga.Common.Dto.SubjectDto,Szakdoga.DataLayer.Model.Subject)">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SubjectMapper.MapToModel(Szakdoga.DataLayer.Model.Subject,Szakdoga.Common.Dto.SubjectDto)">
+            <inheritdoc/>.
+        </member>
+        <member name="T:Szakdoga.Common.Mappers.SyllabusMapper">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SyllabusMapper.MapToDto(Szakdoga.DataLayer.Model.Syllabus)">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SyllabusMapper.MapToModel(Szakdoga.Common.Dto.SyllabusDto)">
+            <inheritdoc/>.
+        </member>
+        <member name="M:Szakdoga.Common.Mappers.SyllabusMapper.MapToModel(Szakdoga.Common.Dto.SyllabusDto,Szakdoga.DataLayer.Model.Syllabus)">
+            <inheritdoc/>.
+        </member>
+        <member name="T:Szakdoga.BusinessLayer.Utils.Constants">
+            <summary>
+            A class for storing constant values.
+            </summary>
+        </member>
+        <member name="T:Szakdoga.BusinessLayer.Utils.Constants.SubjectLanguage">
+            <summary>
+            The languages of the subjects.
+            </summary>
+        </member>
+        <member name="F:Szakdoga.BusinessLayer.Utils.Constants.SubjectLanguage.Hungarian">
+            <summary>
+            Hungarian.
+            </summary>
+        </member>
+        <member name="F:Szakdoga.BusinessLayer.Utils.Constants.SubjectLanguage.Other">
+            <summary>
+            NotSpecified Languages.
+            </summary>
+        </member>
+        <member name="F:Szakdoga.BusinessLayer.Utils.Constants.DefaultLanguage">
+            <summary>
+            The default Language for subjects.
+            </summary>
+        </member>
+        <member name="F:Szakdoga.BusinessLayer.Utils.Constants.DefaultUserId">
+            <summary>
+            The default user id.
+            It's used because this program does not handles multiple Users.
+            </summary>
+        </member>
+    </members>
+</doc>

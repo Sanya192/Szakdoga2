@@ -8,28 +8,46 @@ using Szakdoga.DataLayer.Model;
 
 namespace Szakdoga.API.Controllers
 {
+
     /// <summary>
     /// Controller for handlying Syllabus resource.
     /// </summary>
     public class SyllabusController : SzakdogaControllerBase<Syllabus, SyllabusDto, string>
     {
+        /// <inheritdoc />
         public SyllabusController(ISzakdogaContext context, IMapper<Syllabus, SyllabusDto> mapper) : base(context, mapper)
         {
         }
 
+        /// <summary>
+        /// Gets all of the Syllabi.
+        /// </summary>
+        /// <returns>A list containing all syllabi.</returns>
         public override IEnumerable<SyllabusDto> Get()
         {
-            return Context.Syllabi.ToList().Select(x => Mapper.MapToDto(x));
+            return Context.Syllabi.ToList().Select(x => Mapper.MapToDto(x))!;
         }
 
+        /// <summary>
+        /// Gets one of the Syllabi.
+        /// </summary>
+        /// <param name="id">The requested syllabus ID.</param>
+        /// <returns>A SyllabusDto.</returns>
         public override SyllabusDto Get(string id)
         {
             var result = Context.Syllabi.FirstOrDefault(x => x.Id == id);
             if (result == null)
+            {
                 this.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return null;
+            }
             return UpdateFinishes(Mapper.MapToDto(result));
         }
 
+        /// <summary>
+        /// Creates a Syllabus in the Database based on the input.
+        /// </summary>
+        /// <param name="value">The syllabus.</param>
         public override void Put([FromBody] SyllabusDto value)
         {
             if (Context.Syllabi.Find(value.Id) != null || value == null)
@@ -51,6 +69,10 @@ namespace Szakdoga.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a Syllabus based on the input.
+        /// </summary>
+        /// <param name="id">The Id of the Syllabus to be deleted.</param>
         public override void Delete(string id)
         {
             var toDelete = Context.Syllabi.Find(id);
@@ -79,7 +101,7 @@ namespace Szakdoga.API.Controllers
         [HttpGet("AllSpecName/{MainId}")]
         public Dictionary<string, string> GetRegisteredSpecSyllabiName(string MainId)
         {
-            return GetSyllabiNamesBasedOn(x =>x.Parent ==MainId);
+            return GetSyllabiNamesBasedOn(x => x.Parent == MainId);
         }
 
         /// <summary>
@@ -99,7 +121,7 @@ namespace Szakdoga.API.Controllers
         [HttpGet("AllSpecName")]
         public Dictionary<string, string> GetAllSpecSyllabiName()
         {
-            return GetSyllabiNamesBasedOn(x =>x.Parent != null);
+            return GetSyllabiNamesBasedOn(x => x.Parent != null);
         }
 
 
@@ -113,7 +135,7 @@ namespace Szakdoga.API.Controllers
         private SyllabusDto UpdateFinishes(SyllabusDto dtoList)
         {
             for (int i = 0; i < dtoList.Subjects.Count; i++)
-                dtoList.Subjects[i].Finished = Context.StudentFinisheds.Count(x => x.StudentId == Constants.DefaultUserId && x.SubjectId == dtoList.Subjects[i].Id) > 0;
+                dtoList.Subjects[i].Finished = Context.StudentFinisheds.Any(x => x.StudentId == Constants.DefaultUserId && x.SubjectId == dtoList.Subjects[i].Id);
             return dtoList;
         }
 

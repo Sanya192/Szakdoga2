@@ -1,9 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Szakdoga.Common.Dto;
 using Szakdoga.Common.Mappers;
 using Szakdoga.DataLayer.Model;
@@ -28,10 +23,10 @@ namespace Szakdoga.Common.Tests.Mappers
             //Given
 
             //When
-            var result = _mapper.MapToDto(model);
+            var result = _mapper!.MapToDto(model);
 
             //Then
-            Assert.AreEqual(model.Id, result.Id);
+            Assert.AreEqual(model.Id, result!.Id);
             Assert.AreEqual(model.Name, result.Name);
             Assert.AreEqual(model.Length, result.Length);
             Assert.AreEqual(model.MustChoseCredit, result.MustChoseCredit);
@@ -46,10 +41,10 @@ namespace Szakdoga.Common.Tests.Mappers
             //Given
 
             //When
-            var result = _mapper.MapToModel(dto);
+            var result = _mapper!.MapToModel(dto);
 
             //Then
-            Assert.AreEqual(dto.Id, result.Id);
+            Assert.AreEqual(dto.Id, result!.Id);
             Assert.AreEqual(dto.Name, result.Name);
             Assert.AreEqual(dto.Length, result.Length);
             Assert.AreEqual(dto.MustChoseCredit, result.MustChoseCredit);
@@ -59,7 +54,7 @@ namespace Szakdoga.Common.Tests.Mappers
 
         }
 
-        private static object[] syllabusModels = new object[]
+        private static readonly object[] syllabusModels = new object[]
         {
             new Syllabus()
             {
@@ -73,7 +68,7 @@ namespace Szakdoga.Common.Tests.Mappers
             },
 
         };
-        private static object[] syllabusDtos = new object[]
+        private static readonly object[] syllabusDtos = new object[]
         {
             new SyllabusDto()
             {

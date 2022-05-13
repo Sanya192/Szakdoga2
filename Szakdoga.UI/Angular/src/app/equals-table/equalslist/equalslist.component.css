@@ -1,0 +1,15 @@
+table{
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
+}
+.equal-list-title{
+
+}
+.equal-list-head{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 98%;
+}
