@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * A service for handling all of the REST commands.
+ */
 export class RestClientService {
   url: string;
 
@@ -35,6 +38,8 @@ export class RestClientService {
   }
 
   getEqualsTable(sourceId: string, targetId: string) {
-    return this.http.get(this.url + '/Subject/EqualTable/'+targetId+'/'+sourceId);
+    return this.http.get(
+      this.url + '/Subject/EqualTable/' + targetId + '/' + sourceId
+    );
   }
 }

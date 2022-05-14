@@ -6,6 +6,10 @@ import { EventService } from './event.service';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service for handling Syllabi.
+ * Mainly Used by subject tree.
+ */
 export class SyllabiService {
   public activeMainSyllabus: Syllabus;
   public selectedSpecSyllabi: Syllabus[];
@@ -37,7 +41,7 @@ export class SyllabiService {
 
   loadSettingsForSyllabi() {
     let mainId = localStorage.getItem('selectedMainSylabbusId') ?? 'NBNEUM';
-    let specName = JSON.parse(localStorage.getItem('selectedSpec'))??[];
+    let specName = JSON.parse(localStorage.getItem('selectedSpec')) ?? [];
     this.changeActiveMainSyllabus(mainId);
     this.selectMultibleSpec(specName);
     this.rest.getMainSyllabusNames().subscribe((x: Record<string, string>) => {

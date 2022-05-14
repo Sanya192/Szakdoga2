@@ -18,9 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Szakdoga.Common", "Szakdoga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Szakdoga.API", "Szakdoga.API\Szakdoga.API.csproj", "{28115F4E-8108-4653-A658-CD90E47B1708}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Szakdoga.API.Tests", "Szakdoga.API.Tests\Szakdoga.API.Tests.csproj", "{3C162C96-813D-4B9D-973F-2DFA768578ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Szakdoga.API.Tests", "Szakdoga.API.Tests\Szakdoga.API.Tests.csproj", "{3C162C96-813D-4B9D-973F-2DFA768578ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Szakdoga.Common.Tests", "Szakdoga.Common.Tests\Szakdoga.Common.Tests.csproj", "{25B55F61-6769-48F9-86EE-211A55D26B05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Szakdoga.Common.Tests", "Szakdoga.Common.Tests\Szakdoga.Common.Tests.csproj", "{25B55F61-6769-48F9-86EE-211A55D26B05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,6 +9,9 @@ import { EventService } from '../../shared/services/event.service';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * A service used for handling multiple subjects.
+ */
 export class SubjectService {
   mainSubjects: Subject[];
   specSubjects: Subject[];
@@ -22,7 +25,6 @@ export class SubjectService {
     events.subjectChanged.subscribe(() => {
       this.resetSubjects();
     });
-    
   }
 
   getOtherSubjectsBySemester(): Subject[][] {
@@ -32,6 +34,9 @@ export class SubjectService {
     return output;
   }
 
+  /**
+   * Resets all of the subjects according to the currently selected Syllabi.
+   */
   resetSubjects() {
     this.mainSubjects = this.syllabiService?.activeMainSyllabus?.subjects;
     this.specStartingSem =

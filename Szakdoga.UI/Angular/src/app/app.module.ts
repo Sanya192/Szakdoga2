@@ -15,6 +15,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SwaggerUIComponent } from './components/swagger-ui/swagger-ui.component';
 
+/**
+ * Handles Routing variables.
+ * If no path match goes to SubjectTreeAppComponent.
+ */
 const routes: Routes = [
   { path: 'targyiHalo', component: SubjectTreeAppComponent },
   { path: 'ekvivalenciaTabla', component: EqualsTableComponent },

@@ -134,7 +134,7 @@ namespace Szakdoga.API.Controllers
 
         private SyllabusDto UpdateFinishes(SyllabusDto dtoList)
         {
-            for (int i = 0; i < dtoList.Subjects.Count; i++)
+            for (int i = 0; i < dtoList?.Subjects?.Count; i++)
                 dtoList.Subjects[i].Finished = Context.StudentFinisheds.Any(x => x.StudentId == Constants.DefaultUserId && x.SubjectId == dtoList.Subjects[i].Id);
             return dtoList;
         }

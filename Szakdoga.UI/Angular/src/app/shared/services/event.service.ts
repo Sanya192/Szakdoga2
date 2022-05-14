@@ -1,16 +1,19 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {EqualPair} from "../models/equalPair";
-import {EqualsTable} from "../models/equalsTable";
+import { Injectable, EventEmitter } from '@angular/core';
+import { EqualPair } from '../models/equalPair';
+import { EqualsTable } from '../models/equalsTable';
 
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * A service used for event triggering and subscribing to these events.
+ */
 export class EventService {
   public subjectChanged: EventEmitter<void>;
   public syllabusLoaded: EventEmitter<void>;
   public mainSubjectChanged: EventEmitter<void>;
   public specSyllabusLoaded: EventEmitter<void>;
-  public equalsTableQueryLoaded:EventEmitter<EqualsTable>;
+  public equalsTableQueryLoaded: EventEmitter<EqualsTable>;
 
   constructor() {
     this.subjectChanged = new EventEmitter();
@@ -32,7 +35,8 @@ export class EventService {
   triggerSpecSyllabusLoad() {
     this.specSyllabusLoaded.emit();
   }
-  triggerEqualTableLoaded(x:EqualsTable){
+
+  triggerEqualTableLoaded(x: EqualsTable) {
     this.equalsTableQueryLoaded.emit(x);
   }
 }

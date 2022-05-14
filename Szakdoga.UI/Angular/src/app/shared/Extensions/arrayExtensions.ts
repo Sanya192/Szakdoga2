@@ -1,4 +1,12 @@
-export const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
+/**
+ * Extension Used for grouping arrays.
+ * @param list the array we want to group.
+ * @param getKey the key we group by.
+ */
+export const groupBy = <T, K extends keyof any>(
+  list: T[],
+  getKey: (item: T) => K
+) =>
   list.reduce((previous, currentItem) => {
     const group = getKey(currentItem);
     if (!previous[group]) previous[group] = [];

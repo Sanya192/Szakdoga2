@@ -74,17 +74,18 @@ namespace Szakdoga.API.Tests.Controllers
                 {
                     Id = "SX",
                     Language = Constants.DefaultLanguage.ToString(),
+                    Parents = new List<Subject>()
                 }
             ,new Subject()
                 {
                     Id = "SXL",
                     Language = Constants.DefaultLanguage.ToString(),
-
+                    Parents = new List<Subject>()
                 },new Subject()
                 {
                     Id="SS",
                     Language = Constants.DefaultLanguage.ToString(),
-
+                    Parents = new List<Subject>()
                 },
             }};
 

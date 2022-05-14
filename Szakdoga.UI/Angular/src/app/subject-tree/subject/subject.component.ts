@@ -3,6 +3,10 @@ import { Subject } from '../../shared/models/subject';
 import { MatCardModule } from '@angular/material/card';
 import { RestClientService } from '../../shared/services/rest-client.service';
 
+/**
+ * A component for handling Subjects.
+ * It visualizes them and also handles triggering the Finish for the subject.
+ */
 @Component({
   selector: 'st-subject',
   templateUrl: './subject.component.html',
@@ -23,6 +27,9 @@ export class SubjectComponent implements OnInit {
     this.parentNames = Object.values(this.data.parents);
   }
 
+  /**
+   * Changes the Finish of the subject. Triggered by clicking on the component.
+   */
   changeFinish() {
     if (this.data.finished) {
       this.rest.deSetFinishSubject(this.data.id).subscribe(

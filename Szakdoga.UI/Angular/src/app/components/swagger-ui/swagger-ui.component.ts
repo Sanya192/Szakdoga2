@@ -1,6 +1,10 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import SwaggerUI from 'swagger-ui';
 
+/**
+ * A component for Read Write operations.
+ * Uses Swagger UI.
+ */
 @Component({
   selector: 'app-swagger-ui',
   templateUrl: './swagger-ui.component.html',
